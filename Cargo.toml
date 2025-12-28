@@ -1,0 +1,10 @@
+[package]
+name = "music-bot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serenity = { version = "0.12", features = ["client", "gateway", "rustls_backend", "voice"] }
+songbird = { version = "0.4", features = ["builtin-queue"] }
+tokio = { version = "1", features = ["full"] }
+reqwest = "0.11"

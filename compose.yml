@@ -1,0 +1,22 @@
+services:
+  music-bot:
+    build: .
+    container_name: discord-music-bot
+    restart: unless-stopped
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+    volumes:
+      # Temp files storage (per-guild music downloads)
+      - bot-temp:/tmp/music_bot_downloads
+    # Graceful shutdown configuration
+    stop_grace_period: 30s  # Give bot 30s to clean up
+    healthcheck:
+      test: ["CMD", "test", "-f", "/proc/1/cmdline"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  bot-temp:
+    driver: local
